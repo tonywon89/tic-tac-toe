@@ -1,0 +1,46 @@
+body {
+  margin-bottom: 50px;
+}
+
+.jumbotron {
+  background-color: #4DB5D6;
+}
+
+.jumbotron h1 {
+  color:#4DD64D;
+}
+
+
+.col-xs-4 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.square {
+  background-color: #99CFFE;
+  border-right: 3px solid #99FED4;
+  border-bottom: 3px solid #99FED4;
+  height: 10em;
+  width: 100%;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.square:hover {
+  background-color: #278ADB;
+}
+
+.square.last-row {
+  border-bottom: 0px solid #99FED4;
+}
+
+.square.last-col {
+  border-right: 0px solid red;
+}
+
+.entry {
+  font-size: 600%;
+  text-align: center;
+}
