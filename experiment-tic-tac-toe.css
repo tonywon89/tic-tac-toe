@@ -9,6 +9,13 @@ body {
 .jumbotron h1 {
   color:#4DD64D;
 }
+
+.announcement {
+  font-size: 2em;
+  font-family: monospace;
+  color: #219DCF;
+  margin-bottom: 5px;
+}
 /* --------------------------*/
 
 /* Sets the square grid properties */
@@ -49,11 +56,11 @@ body {
 /*The properties of the game play */
 
 
-
+/*
 input[type="checkbox"] {
   display: none;
 }
-
+*/
 .turn {
   
   margin-top: 0.5em;
