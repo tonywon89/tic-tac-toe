@@ -50,11 +50,11 @@ body {
 
 /*The properties of the game play */
 
-/*
+
 input[type="checkbox"] {
   display: none;
 }
-*/
+
 .turn {
   
   margin-top: 0.5em;
@@ -69,5 +69,10 @@ input[type="checkbox"] {
 .entry {
   font-size: 600%;
   text-align: center;
+  height: 100%;
+}
+
+.win {
+  background-color: green;
 }
 

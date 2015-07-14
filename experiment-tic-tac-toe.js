@@ -9,13 +9,6 @@ var counter = 0;
 
 $(document).ready(function(){
 
-
-
-// test code
-
- 
-
-//
   disable(resetButton);
   $(".main-grid").hide();
 
@@ -51,6 +44,7 @@ $(document).ready(function(){
     } else {
       removeTurn(player2Turn, player2Text);
     }
+    $('.entry.win').removeClass("win");
     $('.announcement').text("Ready to play another game? Press Start!")
     $('.main-grid').fadeOut("slow");
     counter = 0;
@@ -58,40 +52,33 @@ $(document).ready(function(){
 
 
 function entryPlacement() {
-  counter += 1;
-  console.log(counter);
+    counter += 1;
     if (player1Turn.prop("checked")) {
       placeMark("X", this);
       if (counter > 4){
-        checkRows("Player 1");
+        if (checkAll()) {
+          $('.square').off("click");
+          $('.announcement').text("Player 1 Wins! Press reset to play again.");
+        }
       }
       changeTurn(player1Turn,player1Text,player2Turn,player2Text);
       $(this).off("click");
       
-    } else  {
+    } else {
       placeMark("O", this);
       if (counter > 4){
-        checkRows("Player 2");
+        if (checkAll()) {
+          $('.square').off("click");
+          $('.announcement').text("Player 2 Wins! Press reset to play again.");
+        }
       }
       changeTurn(player2Turn,player2Text,player1Turn,player1Text);
       $(this).off("click");
-
     }
- 
-    // test code
-     
-    /*
-    if (entry4.text() && entry5.text() && entry6.text()) {
-        if (entry4.text() == entry5.text() && entry4.text() == entry6.text()){
-          console.log("player 2 win");
-        }   
-    }
-    */
 
-    if (counter == 9) {
-        $('.announcement').text("The game is over! Press start to play again.");
+    if (counter == 9 && !checkRows()) {
+        $('.announcement').text("It's a Tie! Press start to play again.");
     } 
-    //
 }
 
 function disable(button) {
@@ -107,12 +94,12 @@ function changeTurn(currentTurn, currentText, nextTurn, nextText) {
   removeTurn(currentTurn, currentText);
   addTurn(nextTurn,nextText);
 }
-
+//removes the highlight and the checkmark
 function removeTurn(playerTurn, playerText) {
   playerTurn.prop("checked",false)
   playerText.removeClass("active-turn")
 }
-
+//adds the checkmark and highlight
 function addTurn(playerTurn, playerText) {
   playerTurn.prop("checked", true);
   playerText.addClass("active-turn");
@@ -123,53 +110,127 @@ function placeMark(entry,location) {
   $(".entry", location).text(entry);
 }
 
-function checkWin(mark) {
-  if (checkRow(mark)) { return true; }
-  else if (checkCol(mark)){ return true; }
-  else if (checkDiag(mark)) { return true; }
-  else {return false;}
+/*
+function checkWin() {
+  if (checkAll()) { return true; }
+  //if (checkCols()){ return true; }
+  //if (checkDiags { return true; }
+  return false
 }
+*/
 
-function checkRows(player) {
-  if (checkFirstRow(entry1, entry2, entry3)) {
-    $('.announcement').text(player + " wins!")}
-  if (checkSecondRow(entry4. entry5, entry6)) {$('.announcement').text(player + " wins!")}
-  if (checkThirdRow(entry7, entry8, entry9)) {$('.announcement').text(player + " wins!")}
+function checkAll() {
+  //checks first row
+  if (check(entry1, entry2, entry3)) {
+    return true;
+  }
+  //checks second row
+  if (check(entry4, entry5, entry6)) {
+    return true;
+  }
+  //checks third row
+  if (check(entry7, entry8, entry9)) {
+    return true;
+  }
+
+   //checks first column
+  if (check(entry1, entry4, entry7)) {
+    return true;
+  }
+  //checks second column
+  if (check(entry2, entry5, entry8)) {
+    return true;
+
+  }
+  //checks third column
+  if (check(entry3, entry6, entry9)) {
+    //console.log("third column win");
+    return true;
+  }
+
+  //checks right diagonal
+  if (check(entry1, entry5, entry9)) {
+    return true;
+  }
+
+  if (check(entry3, entry5, entry7)) {
+    return true;
+  }
+  return false;
   
 }
 
-function checkFirstRow(first, second, third) {
-   first = $('#entry1');
-   second = $('#entry2');
-   third = $('#entry3');
-   if (first.html() && second.html() && third.html()) {
-      return (first.html() === second.html() && first.html() === third.html());
+function check(first, second, third) {
+  if (first.html() && second.html() && third.html()) {
+    if(first.html() === second.html() && first.html() === third.html()) {
+      first.addClass("win");
+      second.addClass("win");
+      third.addClass("win");
+      return true;
     }
+  }
 }
-
+/*
 function checkSecondRow(first, second, third) {
-   first = $('#entry4');
-   second = $('#entry5');
-   third = $('#entry6');
+   //first = $('#entry4');
+   //second = $('#entry5');
+   //third = $('#entry6');
    if (first.html() && second.html() && third.html()) {
+      console.log("Second row");
       return (first.html() === second.html() && first.html() === third.html());
     }
 }
 
 function checkThirdRow(first, second, third) {
-   first = $('#entry7');
-   second = $('#entry8');
-   third = $('#entry9');
+   //first = $('#entry7');
+   //second = $('#entry8');
+   //third = $('#entry9');
    if (first.html() && second.html() && third.html()) {
+      console.log("third row");
       return (first.html() === second.html() && first.html() === third.html());
     }
 }
+*/
+/*
+function checkCols() {
+  //checks first column
+  if (check(entry1, entry4, entry7)) {
+    //console.log("first column win");
+    return true;
+  }
+  //checks second column
+  if (check(entry2, entry5, entry8)) {
+    //console.log("second column win");
+    return true;
 
-function checkCols(mark) {
+  }
+  //checks third column
+  if (check(entry3, entry6, entry9)) {
+    //console.log("third column win");
+    return true;
+  }
+  return false;
+}
+*/
+function checkCol(first, second, third) {
+
+  if (first.html() && second.html() && third.html()) {
+    console.log("column");
+    if(first.html() === second.html() && first.html() === third.html()) {
+      first.addClass("win");
+      second.addClass("win");
+      third.addClass("win");
+      return true;
+    }
+  }
 
 }
 
-function checkDiags(mark) {
+function checkDiags() {
+
+}
+
+function checkDiag(first, second, third) {
 
 }
 
