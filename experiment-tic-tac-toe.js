@@ -17,20 +17,12 @@ $(document).ready(function(){
     player1Text.addClass("active-turn");
   });
 
-  $('.square').click(function() {
-    if (player1Turn.prop("checked")) {
-      changeTurn(player1Turn,player1Text,player2Turn,player2Text);
-      placeMark("X", this);
-      $(this).off("click");
-    } else  {
-      changeTurn(player2Turn,player2Text,player1Turn,player1Text);
-      placeMark("O", this);
-      $(this).off("click");
-    }
+  $('.square').click(entryPlacement);
     
-  });
+  
 
   resetButton.click(function(){
+    $('.square').on("click", entryPlacement);
     clearGrid();
     enable(startButton);
     disable(resetButton);
@@ -39,11 +31,25 @@ $(document).ready(function(){
     } else {
       removeTurn(player2Turn, player2Text);
     }
+    
+
     $('.announcement').text("Ready to play another game? Press Start!")
     $('.main-grid').fadeOut("slow");
   });
 
 
+function entryPlacement() {
+
+  if (player1Turn.prop("checked")) {
+      changeTurn(player1Turn,player1Text,player2Turn,player2Text);
+      placeMark("X", this);
+      $(this).off("click");
+    } else  {
+      changeTurn(player2Turn,player2Text,player1Turn,player1Text);
+      placeMark("O", this);
+      $(this).off("click");
+    }
+}
 
 function disable(button) {
   button.prop("disabled", true)
