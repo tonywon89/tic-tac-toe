@@ -21,10 +21,11 @@ $(document).ready(function(){
     if (player1Turn.prop("checked")) {
       changeTurn(player1Turn,player1Text,player2Turn,player2Text);
       placeMark("X", this);
-
+      $(this).off("click");
     } else  {
       changeTurn(player2Turn,player2Text,player1Turn,player1Text);
       placeMark("O", this);
+      $(this).off("click");
     }
     
   });
