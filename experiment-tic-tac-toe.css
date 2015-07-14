@@ -12,6 +12,8 @@ body {
 /* --------------------------*/
 
 /* Sets the square grid properties */
+
+
 .col-xs-4 {
   padding-left: 0px;
   padding-right: 0px;
@@ -40,16 +42,18 @@ body {
 .square.last-col {
   border-right: 0px solid red;
 }
+
+
 /*------------------------------*/
 
 /*The properties of the game play */
 
 
-/*
+
 input[type="checkbox"] {
   display: none;
 }
-*/
+
 .turn {
   
   margin-top: 0.5em;

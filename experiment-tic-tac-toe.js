@@ -5,6 +5,8 @@ $(document).ready(function(){
 
   $("#start-button").click(function(){
     $(this).prop("disabled",true);
+    $('.main-grid').fadeIn("slow");
+    
     player1Turn.prop("checked", true);
     player1Text.addClass("active-turn");
   });
@@ -33,5 +35,4 @@ function changeTurn(currentTurn, currentText, nextTurn, nextText) {
 function placeMark(entry,location) {
   $(".entry", location).text(entry);
 }
-
 });
