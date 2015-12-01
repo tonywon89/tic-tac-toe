@@ -26,11 +26,6 @@ $(document).ready(function(){
   // will change turns after an entry is made. Also disables the squares once they're clicked
   $('.square').on("click", entryPlacement);
     
-  // Determine the results of the match
-
-
-
-
   // resets the board to start a new game 
   resetButton.click(function(){
     //re-enable the boxes to be clickable
@@ -51,6 +46,7 @@ $(document).ready(function(){
   });
 
 
+// Adds a turn, and places a mark on the square. Also, if turn is greater than 4, checks win conditions. Changes turn if game continues
 function entryPlacement() {
     counter += 1;
     if (player1Turn.prop("checked")) {
@@ -76,7 +72,7 @@ function entryPlacement() {
       $(this).off("click");
     }
 
-    if (counter == 9 && !checkRows()) {
+    if (counter == 9 && !checkAll()) {
         $('.announcement').text("It's a Tie! Press start to play again.");
     } 
 }
@@ -110,49 +106,41 @@ function placeMark(entry,location) {
   $(".entry", location).text(entry);
 }
 
-/*
-function checkWin() {
-  if (checkAll()) { return true; }
-  //if (checkCols()){ return true; }
-  //if (checkDiags { return true; }
-  return false
-}
-*/
 
 function checkAll() {
-  //checks first row
+  // checks first row
   if (check(entry1, entry2, entry3)) {
     return true;
   }
-  //checks second row
+  // checks second row
   if (check(entry4, entry5, entry6)) {
     return true;
   }
-  //checks third row
+  // checks third row
   if (check(entry7, entry8, entry9)) {
     return true;
   }
 
-   //checks first column
+  // checks first column
   if (check(entry1, entry4, entry7)) {
     return true;
   }
-  //checks second column
+  // checks second column
   if (check(entry2, entry5, entry8)) {
     return true;
 
   }
-  //checks third column
+  // checks third column
   if (check(entry3, entry6, entry9)) {
     //console.log("third column win");
     return true;
   }
 
-  //checks right diagonal
+  // checks right diagonal
   if (check(entry1, entry5, entry9)) {
     return true;
   }
-
+  // checks left diagonal
   if (check(entry3, entry5, entry7)) {
     return true;
   }
@@ -169,69 +157,6 @@ function check(first, second, third) {
       return true;
     }
   }
-}
-/*
-function checkSecondRow(first, second, third) {
-   //first = $('#entry4');
-   //second = $('#entry5');
-   //third = $('#entry6');
-   if (first.html() && second.html() && third.html()) {
-      console.log("Second row");
-      return (first.html() === second.html() && first.html() === third.html());
-    }
-}
-
-function checkThirdRow(first, second, third) {
-   //first = $('#entry7');
-   //second = $('#entry8');
-   //third = $('#entry9');
-   if (first.html() && second.html() && third.html()) {
-      console.log("third row");
-      return (first.html() === second.html() && first.html() === third.html());
-    }
-}
-*/
-/*
-function checkCols() {
-  //checks first column
-  if (check(entry1, entry4, entry7)) {
-    //console.log("first column win");
-    return true;
-  }
-  //checks second column
-  if (check(entry2, entry5, entry8)) {
-    //console.log("second column win");
-    return true;
-
-  }
-  //checks third column
-  if (check(entry3, entry6, entry9)) {
-    //console.log("third column win");
-    return true;
-  }
-  return false;
-}
-*/
-function checkCol(first, second, third) {
-
-  if (first.html() && second.html() && third.html()) {
-    console.log("column");
-    if(first.html() === second.html() && first.html() === third.html()) {
-      first.addClass("win");
-      second.addClass("win");
-      third.addClass("win");
-      return true;
-    }
-  }
-
-}
-
-function checkDiags() {
-
-}
-
-function checkDiag(first, second, third) {
-
 }
 
 function clearGrid() {
